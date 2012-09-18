@@ -1,34 +1,92 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html> 
+<html lang="en" dir="ltr"> 
+<head> 
 
-<html>
-  <head>
-    <title>Curator Popup</title>
-    <style type="text/css">
-      body {
-        width:400px;
-		height:550px;
-        overflow-x:hidden;
-      }
-    </style>
+	<link rel="stylesheet" type="text/css" href="popup.css">
+	<script src="jquery.1.5.1.js"></script>
+	<script src="popup.js"></script>
+	<script src="Ajax.js" type="text/javascript"></script>
+	<script src="log4js.js" type="text/javascript"></script>
+	<script src="Utils.js" type="text/javascript"></script>
+	<script src="xmlrpc-client.js" type="text/javascript"></script>
+	<script src="XmlRpcConnections.js" type="text/javascript"></script>
 
-    <!-- JavaScript and HTML must be in separate files for security. -->
-    <script type="text/javascript" src="xmlrpc.js"></script>
-    <script type="text/javascript" src="jsrsClient.js"></script>
-	<script type="text/javascript" src="popup.js"></script>
-  </head>
-  <body>
-  
-<form method="post" action="#" onsubmit="return false;">
-<table><tr><td valign="top">
-<p>XML-RPC Message:<br /><textarea name="rpctext" cols="30" rows="15" wrap="virtual"></textarea></p>
-</td><td valign="top">
-<p>XML-RPC Response:<br /><textarea name="rpcresponse" cols="30" rows="15">Click "Make RPC" to send the XML-RPC message to the server specified below.</textarea></p>
-</td></tr>
-<tr><td colspan="2" valign="top">
-<p>Remote RPC Server:<br /><input type="text" name="rpcserver" size="50" value="http://teachive.org/xmlrpc.php"></p>
-<p><input type="button" value="Make RPC"></p>
-</td></tr></table>
-<button id="button">¹öÆ°</button>
-</form>
-  </body>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="jquery.ui.datetime.min.js"></script>
+	<link rel="stylesheet" type="text/css" media="screen" href="http://hotlink.jquery.com/jqueryui/themes/base/jquery.ui.all.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/themes/flick/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="jquery.ui.datetime.css" />
+
+</head>
+
+<body>
+
+	<script>
+		$(function(){
+			$('#schedule_date_time').datetime({ format: "yy-mm-dd'T'hh:ii" });
+			
+			$('#schedule').slideUp();
+			
+			$('.schedule_link').click(function(){
+			
+				$('#schedule').slideToggle();
+			
+			});
+			
+			chrome.tabs.getSelected(null,function(tab) {
+			
+				if(tab.title){
+			    	var tabtitle = tab.title;
+			    }else{
+			    	var tabtitle = "";
+			    }
+			    
+			    if(tabtitle != ""){
+			    	$('#post_title').attr("value",tabtitle);
+			    }
+			
+			});
+			
+		});
+	</script>
+	
+	<style>
+		.schedule_link{
+			display:none;
+		}
+		#schedule {
+			display:none;
+		}
+	</style>
+
+	<div id="container">
+	
+		<h1>Curator for Teachive.org</h1>
+		
+		<p class="schedule_link"><a href="#" title="Would you like to schedule this post?"><img src="schedule.png" alt="Schedule Post" /></a></p>
+		
+		<div id="schedule">
+			<label for="schedule_date_time">Schedule Post?</label>
+			<input type="text" id="schedule_date_time" />
+		</div><!-- #schedule -->
+	
+		<label for="post_title">Title: </label>
+		<input type="text" id="post_title" />
+		
+		<label for="post_category_grade">Grade: </label>
+		<input type="text" id="post_category_grade" />
+		
+		<label for="post_category_subject">Subject: </label>
+		<input type="text" id="post_category_subject" />
+		
+		<label for="post_tags">Tags: </label>
+		<input type="text" id="post_tags" />
+		
+		<button id="go_add_link">Save</button>
+		<div id="working">&nbsp;</div>
+	
+	</div><!-- #container -->
+
+</body>
+
 </html>

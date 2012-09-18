@@ -1,13 +1,14 @@
 {
-  "name": "Curator",
-  "version": "1.0",
-  "manifest_version": 2,
-  "description": "Curator testing",
-  "browser_action": {
-    "default_icon": "icon.png",
-	"default_popup": "popup.html"
-  },
-  "permissions": [
-    "tabs", "http://*/*"
-  ]
+   "browser_action": {
+      "default_icon": "icon.png",
+      "popup": "popup.html"
+   },
+   "description": "Curator for Techive",
+   "icons": {
+      "128": "icon.png"
+   },
+   "name": "Curator for Techive.org",
+   "options_page": "options.html",
+   "permissions": [ "tabs", "http://*/*", "https://*/*" ],
+   "version": "0.1"
 }

@@ -1,121 +1,134 @@
-// Copyright (c) 2012 Pyunghwa Kim
-
-// add click event
-document.addEventListener('DOMContentLoaded', function () {
-	  var sendBtn = document.querySelector('button');
-	  sendBtn.addEventListener('click', makeRPCCall);
-	});
-
-  function makeRPCCall(){
-	//test
-	alert("ok");
-    // pass multiple parms as array
-    var msg = [];
-    msg[0] = document.forms[0].elements["rpcserver"].value;
-    msg[1] = escape(document.forms[0].elements["rpctext"].value);
-    document.forms[0].elements["rpcresponse"].value = "Forwarding message thru xmlrpc-socket...";
-    jsrsExecute("xmlrpc-socket.php", myCallback, "doRPC", msg);
-  }
-  
-  function myCallback(response){
-    document.forms[0].elements["rpcresponse"].value = response;
-  } 
-  
-  function init(){
-    var msg = new XMLRPCMessage('wp.getPost');
-    msg.addParameter(1);
-    msg.addParameter("runpeaceya");
-    msg.addParameter("tepr6037");
-    msg.addParameter(184);
-    document.forms[0].elements[0].value = msg.xml();
-  }
-  
-  onload=init;
-  
-/*
-// add click event
-document.addEventListener('DOMContentLoaded', function () {
-	  var sendBtn = document.querySelector('button');
-	  sendBtn.addEventListener('click', test);
-	});
-
-
-//
-function test(){
-	alert("aaag");
-}
+$(function() {
 	
-//
-function makeRPCCall(){
-alert("aaa");
-document.write("gggg");
-  var post = new XMLRPCMessage(wp.getPost);
-  post.addParameter(1);
-  post.addParameter("runpeaceya");
-  post.addParameter("tepr6037");
-  post.addParameter(184);
-  
-  // pass multiple parms as array
-  var msg = [];
-  msg[0] = "http://teachive.org/xmlrpc.php";
-  msg[1] = post.xml();
-  jsrsExecute("xmlrpc-socket.php", myCallback, "doRPC", msg);
- }
- 
- function myCallback(response){
-    document.forms[0].elements["rpcresponse"].value = response;
-  } 
- 
- 
-// send post
-function sendPost(){
-//  alert("zzz");
-  
-  //var msg = new XMLRPCMessage(wp.newPost(null));
-  //alert("생성된 포스트 아이디 : "+msg);
-  
-  var post = new XMLRPCMessage(wp.getPost);
-  post.addParameter(1);
-  post.addParameter("runpeaceya");
-  post.addParameter("tepr6037");
-  post.addParameter(184);
-}
-*/
-
-
-/*
-var req = new XMLHttpRequest();
-req.open(
-    "GET",
-    "http://api.flickr.com/services/rest/?" +
-        "method=flickr.photos.search&" +
-        "api_key=90485e931f687a9b9c2a66bf58a3861a&" +
-        "text=hello%20world&" +
-        "safe_search=1&" +  // 1 is "safe"
-        "content_type=1&" +  // 1 is "photos only"
-        "sort=relevance&" +  // another good one is "interestingness-desc"
-        "per_page=20",
-    true);
-req.onload = showPhotos;
-req.send(null);
-
-function showPhotos() {
-  var photos = req.responseXML.getElementsByTagName("photo");
-
-  for (var i = 0, photo; photo = photos[i]; i++) {
-    var img = document.createElement("image");
-    img.src = constructImageURL(photo);
-    document.body.appendChild(img);
-  }
-}
-
-// See: http://www.flickr.com/services/api/misc.urls.html
-function constructImageURL(photo) {
-  return "http://farm" + photo.getAttribute("farm") +
-      ".static.flickr.com/" + photo.getAttribute("server") +
-      "/" + photo.getAttribute("id") +
-      "_" + photo.getAttribute("secret") +
-      "_s.jpg";
-}
-*/
-
+	$('#go_add_link').click(function(){
+	
+		//Add a spinner, to suggest something is happening
+		$('#working').show().html("<img src='loading.gif' alt='' />");
+		
+		//We first need to get the URL of the page we're on
+		chrome.tabs.getSelected(null,function(tab) {
+		    
+		    var tablink = tab.url;
+		    
+		   	EW.LogSystem.init(); //you can open the console by pressing ALT + D (in Firefox > 2.0 press SHIFT+ALT+D) 
+				
+			function AddBlogsListener(){            
+			}
+	
+			AddBlogsListener.prototype.connRequestError = function(errorMsg){
+			    EW.LogSystem.error("AddBlogsListener.connRequestError");
+			}
+	
+			AddBlogsListener.prototype.connRequestStopped = function(){
+			    EW.LogSystem.debug("AddBlogsListener.connRequestStopped");
+			}
+	
+			AddBlogsListener.prototype.connRequestCompleted = function(userBlogs){
+			    EW.LogSystem.debug("AddBlogsListener.connRequestCompleted");
+			}
+	
+		    try {
+		    	var username = localStorage["username"];
+				var password = localStorage["password"];
+				var endpoint = localStorage["endpoint"];
+				var category_name = localStorage["category_name"];
+				var categories_array = [];
+				var e_post_type = localStorage["post_type"];
+				
+				var set_schedule_date_time = document.getElementById("schedule_date_time");
+				var e_schedule_date_time = set_schedule_date_time.value;
+				
+				if(e_schedule_date_time != ""){
+					var schedule_date = new Date(e_schedule_date_time);
+				}
+				
+				var set_title = document.getElementById("post_title");
+				var e_post_title = set_title.value;
+				
+				if(e_post_title == ""){
+					var post_title = tablink;
+				}else{
+					var post_title = e_post_title;
+				}
+				
+				if(e_post_type !== ""){
+					set_post_type = e_post_type;
+				}else{
+					set_post_type = "post";
+				}
+				
+				var tags_array = [];
+				var set_tags = document.getElementById("post_tags");
+				var e_set_tags = set_tags.value;
+				
+				if(e_set_tags != ""){
+					
+					split_the_tags_pre = e_set_tags.replace(/^\s+|\s+$/g, '');
+					split_the_tags = split_the_tags_pre.split(",");
+					
+					for(var i in split_the_tags){
+						tags_array.push(split_the_tags[i]);
+					}
+				}
+				
+				var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>";
+				
+				/*
+					For custom fields:
+					$content['custom_fields'] = array(array("key" => "import_id", "value" => $charid));
+				*/
+				
+				if(category_name && (category_name != "")){
+					
+					//A category name has been entered, so use that
+					categories_array.push(category_name);
+					
+					//Scheduled dates
+					if(schedule_date){
+					
+						var content = { title: post_title, description: content_for_post, categories: categories_array, mt_keywords: tags_array, post_type: set_post_type, dateCreated: schedule_date };
+					
+					}else{
+					
+						var content = { title: post_title, description: content_for_post, categories: categories_array, mt_keywords: tags_array, post_type: set_post_type };
+					
+					}
+					
+				}else{
+				
+					//No category name selected, so try and use the post format 'link'
+					
+					//Scheduled dates
+					if(schedule_date){
+					
+						var content = { title: post_title, description: content_for_post, wp_post_format: "link", mt_keywords: tags_array, post_type: set_post_type, dateCreated: schedule_date };
+					
+					}else{
+					
+						var content = { title: post_title, description: content_for_post, wp_post_format: "link", mt_keywords: tags_array, post_type: set_post_type };
+					
+					}
+					
+				}
+				
+				var edit_url_pre = endpoint.replace("xmlrpc.php","");
+				var edit_url = edit_url_pre + "wp-admin/edit.php";
+				
+		        var connection = new NewPost(username , password, endpoint, content);
+		        connection.addListener(new AddBlogsListener());
+		        connection.startConn();
+		        
+		        $('#working').html("<p id='complete'>Awesome! That's been <a target='_new' href='" + edit_url + "' title='Published!'>published</a>!</p>");
+		        		        
+		    } 
+		    catch (error_obj) {
+				 //EW.LogSystem.error("showErrorDialog: "+error_obj.name + "--" + error_obj.message);
+				 //alert("showErrorDialog: "+error_obj.name + "--" + error_obj.message);
+				 $('#container').append("<p>"+error_obj.name + "--" + error_obj.message+"</p>");	
+		    }
+		    
+		});
+	
+	});
+	
+});
