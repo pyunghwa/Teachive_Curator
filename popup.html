@@ -1,8 +1,9 @@
-<!doctype html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
 <html>
   <head>
     <title>Curator Popup</title>
-    <style>
+    <style type="text/css">
       body {
         width:400px;
 		height:550px;
@@ -11,11 +12,23 @@
     </style>
 
     <!-- JavaScript and HTML must be in separate files for security. -->
-    <script src="popup.js"></script>
-	<script src="xmlrpc.js"></script>
+    <script type="text/javascript" src="xmlrpc.js"></script>
+    <script type="text/javascript" src="jsrsClient.js"></script>
+	<script type="text/javascript" src="popup.js"></script>
   </head>
   <body>
-    <h2>Curator</h2>
-    <button>Curate it!</button>
+  
+<form method="post" action="#" onsubmit="return false;">
+<table><tr><td valign="top">
+<p>XML-RPC Message:<br /><textarea name="rpctext" cols="30" rows="15" wrap="virtual"></textarea></p>
+</td><td valign="top">
+<p>XML-RPC Response:<br /><textarea name="rpcresponse" cols="30" rows="15">Click "Make RPC" to send the XML-RPC message to the server specified below.</textarea></p>
+</td></tr>
+<tr><td colspan="2" valign="top">
+<p>Remote RPC Server:<br /><input type="text" name="rpcserver" size="50" value="http://teachive.org/xmlrpc.php"></p>
+<p><input type="button" value="Make RPC"></p>
+</td></tr></table>
+<button id="button">¹öÆ°</button>
+</form>
   </body>
 </html>

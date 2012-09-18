@@ -6,9 +6,49 @@ document.addEventListener('DOMContentLoaded', function () {
 	  sendBtn.addEventListener('click', makeRPCCall);
 	});
 
+  function makeRPCCall(){
+	//test
+	alert("ok");
+    // pass multiple parms as array
+    var msg = [];
+    msg[0] = document.forms[0].elements["rpcserver"].value;
+    msg[1] = escape(document.forms[0].elements["rpctext"].value);
+    document.forms[0].elements["rpcresponse"].value = "Forwarding message thru xmlrpc-socket...";
+    jsrsExecute("xmlrpc-socket.php", myCallback, "doRPC", msg);
+  }
+  
+  function myCallback(response){
+    document.forms[0].elements["rpcresponse"].value = response;
+  } 
+  
+  function init(){
+    var msg = new XMLRPCMessage('wp.getPost');
+    msg.addParameter(1);
+    msg.addParameter("runpeaceya");
+    msg.addParameter("tepr6037");
+    msg.addParameter(184);
+    document.forms[0].elements[0].value = msg.xml();
+  }
+  
+  onload=init;
+  
+/*
+// add click event
+document.addEventListener('DOMContentLoaded', function () {
+	  var sendBtn = document.querySelector('button');
+	  sendBtn.addEventListener('click', test);
+	});
+
+
+//
+function test(){
+	alert("aaag");
+}
 	
 //
 function makeRPCCall(){
+alert("aaa");
+document.write("gggg");
   var post = new XMLRPCMessage(wp.getPost);
   post.addParameter(1);
   post.addParameter("runpeaceya");
@@ -40,7 +80,7 @@ function sendPost(){
   post.addParameter("tepr6037");
   post.addParameter(184);
 }
-
+*/
 
 
 /*
