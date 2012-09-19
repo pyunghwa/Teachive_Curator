@@ -13,7 +13,7 @@
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="jquery.ui.datetime.min.js"></script>
-	<link rel="stylesheet" type="text/css" media="screen" href="http://hotlink.jquery.com/jqueryui/themes/base/jquery.ui.all.css" />
+	<!--<link rel="stylesheet" type="text/css" media="screen" href="http://hotlink.jquery.com/jqueryui/themes/base/jquery.ui.all.css" />-->
 	<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/themes/flick/jquery-ui.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="jquery.ui.datetime.css" />
 
@@ -73,14 +73,68 @@
 		<label for="post_title">Title: </label>
 		<input type="text" id="post_title" />
 		
-		<label for="post_category_grade">Grade: </label>
-		<input type="text" id="post_category_grade" />
+		<br /><br />
 		
-		<label for="post_category_subject">Subject: </label>
-		<input type="text" id="post_category_subject" />
+		<label for="elementary_checkbox">Elementary<i>(optional)</i>: </label>
+		<div id="elementary_checkbox">
+			<label for="grade_elementaty_1">1st-grade</label>
+			<input type="checkbox" id="grade_elementaty_1" onclick="clickElementaryCheckbox(event)" />
+			<label for="grade_elementaty_2">2nd-grade</label>
+			<input type="checkbox" id="grade_elementaty_2" onclick="clickElementaryCheckbox(event)" />
+			<label for="grade_elementaty_3">3rd-grade</label>
+			<input type="checkbox" id="grade_elementaty_3" onclick="clickElementaryCheckbox(event)" />
+			<br />
+			<label for="grade_elementaty_4">4th-grade</label>
+			<input type="checkbox" id="grade_elementaty_4" onclick="clickElementaryCheckbox(event)" />
+			<label for="grade_elementaty_5">5th-grade</label>
+			<input type="checkbox" id="grade_elementaty_5" onclick="clickElementaryCheckbox(event)" />
+			<label for="grade_elementaty_6">6th-grade</label>
+			<input type="checkbox" id="grade_elementaty_6" onclick="clickElementaryCheckbox(event)" />
+		</div>
 		
-		<label for="post_tags">Tags: </label>
-		<input type="text" id="post_tags" />
+		<br />
+		
+		<label for="subjects_checkbox">Subjects<i>(optional)</i>: </label>
+		<div id="subjects_checkbox">
+			<label for="subjects_korean">국어</label>
+			<input type="checkbox" id="subjects_korean" />
+			<label for="subjects_math">수학</label>
+			<input type="checkbox" id="subjects_math" />
+			<label for="subjects_goodlife">바른생활</label>
+			<input type="checkbox" id="subjects_goodlife" />
+			<label for="subjects_wiselife">슬기로운생활</label>
+			<input type="checkbox" id="subjects_wiselife" />
+			<label for="subjects_funlife">즐거운생활</label>
+			<input type="checkbox" id="subjects_funlife" />
+			<label for="subjects_ethic">도덕</label>
+			<input type="checkbox" id="subjects_ethic" />
+			<label for="subjects_society">사회</label>
+			<input type="checkbox" id="subjects_society" />
+			<label for="subjects_science">과학</label>
+			<input type="checkbox" id="subjects_science" />
+			<label for="subjects_physical">체육</label>
+			<input type="checkbox" id="subjects_physical" />
+			<label for="subjects_music">음악</label>
+			<input type="checkbox" id="subjects_music" />
+			<label for="subjects_art">미술</label>
+			<input type="checkbox" id="subjects_art" />
+			<label for="subjects_english">영어</label>
+			<input type="checkbox" id="subjects_english" />
+			<label for="subjects_practical">실과</label>
+			<input type="checkbox" id="subjects_practical" />
+		</div>
+		
+		<br />
+		
+		<label for="post_comment">Comment<i>(optional)</i>:</label>
+			<textarea id="post_comment" rows="4" placeholder="Comments"></textarea>
+		
+		<br />
+		
+		<label id="post_tags_lable" for="post_tags" style="display:none;">Tags: </label>
+		<input type="text" id="post_tags" style="display:none;" />
+		
+		<br />
 		
 		<button id="go_add_link">Save</button>
 		<div id="working">&nbsp;</div>

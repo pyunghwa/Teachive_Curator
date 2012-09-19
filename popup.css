@@ -21,16 +21,27 @@ html
 	line-height: 35px;
 	text-shadow: rgba(255, 255, 255, 1) 0 1px 0;
 	color: #464646;
+	text-align: center;
 }
 
 #container label
 {
+	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	color: rgb(40,40,40);
-	font-size: 14px;
+	font-size: 12px;
 	display: block;
 }
 
-#container #post_title, #post_category_grade ,#post_category_subject, #post_tags, #schedule_date_time
+#elementary_checkbox, #subjects_checkbox
+{
+	padding: 0 15px;
+}
+#elementary_checkbox label, #subjects_checkbox label
+{
+	display: inline;
+}
+
+#container #post_title, #post_tags, #schedule_date_time, #post_comment
 {
 	padding: 3px 4px;
 	border-width: 1px;
@@ -39,13 +50,12 @@ html
 	-khtml-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
-	font-size: 1.2em;
+	font-size: 14px;
 	line-height: 100%;
 	width: 100%;
 	outline: none;
 	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
-	color: #A9A9A9;
-	margin-bottom: 30px;
+	color: rgb(40,40,40);
 }
 
 #container #go_add_link

@@ -10,34 +10,34 @@
 
 	<div id="options_wrapper">
 	
-		<h1>Delectable Options</h1>
+		<h1>Teachive Curator Options</h1>
 		
 		<p id="opening_help">
-			You need to enter your username and password for a user on your WordPress site. The XML-RPC Endpoint will be the location of your WordPress blog, such as http://www.mydomain.com/xmlrpc.php<br /><br /><small>(Do NOT forget to include the <em>xmlrpc.php</em> at the end of the path)</small>
+			You need to enter your username and password in Teachive.org.
 		</p>
 		
 		<div id="status"></div>
 		
 		<p>
-			<label for="username">Username</label>
+			<label for="username">Username : </label>
 			<input type="text" id="username" value="" />
 		</p>
 		
 		<p>
-			<label for="password">Password</label>
+			<label for="password">Password : </label>
 			<input type="password" id="password" value="" />
 		</p>
 		
-		<p>
-			<label for="endpoint">XML-RPC Endpoint</label>
-			<input type="text" id="endpoint" value="" />
+		<p style="display:none;">
+			<label for="endpoint">XML-RPC Endpoint : </label>
+			<input type="text" id="endpoint" value="http://www.teachive.org/wp-teachersarchive/xmlrpc.php" />
 		</p>
 		
-		<p id="advanced_options_link">
+		<p id="advanced_options_link" style="display:none;">
 			<a href="#" title="View Advanced Options">Advanced Options</a>
 		</p>
 		
-		<div id="advanced_options">
+		<div id="advanced_options" style="display:none;">
 		
 			<p>
 				<label for="category_name">Category Name</label>

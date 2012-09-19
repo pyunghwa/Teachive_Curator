@@ -88,6 +88,7 @@ function restore_options() {
 	}
 	
 }
+/* delete slide effect
 $(function() {
 
 	//View Advanced Options
@@ -99,5 +100,6 @@ $(function() {
 		return false;
 	
 	});
+*/
 
 });

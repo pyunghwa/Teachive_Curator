@@ -130,5 +130,40 @@ $(function() {
 		});
 	
 	});
-	
+
 });
+
+function clickElementaryCheckbox(event)
+{
+	var check1st = false;
+	var check2nd = false;
+	var check3rd = false;
+	var check4th = false;
+	var check5th = false;
+	var check6th = false;
+	
+	alert("Aaaaaaa" + event.target.value);
+	
+	if(event.target.id == "grade_elementaty_1") {
+		if(check1st == false) {
+			document.getElementById('subjects_korean').disabled = true;
+			document.getElementById('subjects_korean').checked = true;
+			//#subjects_math
+			//#subjects_goodlife
+			//#subjects_wiselife
+			//#subjects_funlife
+			//#subjects_ethic
+			//#subjects_society
+			//#subjects_science
+			//#subjects_physical
+			//#subjects_music
+			//#subjects_art
+			//#subjects_english
+			//#subjects_practical
+			check1st = true;
+		}else {
+			check1st = false;
+		}
+	}
+			
+}
