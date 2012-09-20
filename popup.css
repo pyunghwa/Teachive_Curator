@@ -15,7 +15,7 @@ html
 
 #container h1
 {
-	font: italic normal normal 24px/29px Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+	font: italic normal normal 24px/29px "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	margin: 0 0 30px 0;
 	padding: 14px 15px 3px 0;
 	line-height: 35px;
@@ -46,10 +46,10 @@ html
 	padding: 3px 4px;
 	border-width: 1px;
 	border-style: solid;
-	-moz-border-radius: 6px;
-	-khtml-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	border-radius: 6px;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 	font-size: 14px;
 	line-height: 100%;
 	width: 100%;

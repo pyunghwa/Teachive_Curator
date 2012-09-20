@@ -8,7 +8,7 @@ function save_options(){
 	if(username != ""){
 		localStorage["username"] = username;
 	}else{
-		error_msg.push("You didn't enter a username");
+		error_msg.push("You didn't enter a username.");
 	}
 	
 	var e_password = document.getElementById("password");
@@ -16,7 +16,7 @@ function save_options(){
 	if(password != ""){
 		localStorage["password"] = password;
 	}else{
-		error_msg.push(" You didn't enter a password");
+		error_msg.push(" You didn't enter a password.");
 	}
 	
 	var e_endpoint = document.getElementById("endpoint");
@@ -39,15 +39,15 @@ function save_options(){
 	
 	if(error_msg.length > 0){
 		$('#status').fadeIn();
-		status.innerHTML = "Oops! <br />" + error_msg.toString();
+		status.innerHTML = "Error! <br />" + error_msg.toString();
 	}else{
 		$('#status').addClass('success_message').fadeIn();
 		status.innerHTML = "Options Saved.";
-		setTimeout(function() {
-			$('#status').fadeOut('slow',function(){
-				$('#status').removeClass('success_message')
-			});
-		}, 4000);
+		//setTimeout(function() {
+		//	$('#status').fadeOut('slow',function(){
+		//		$('#status').removeClass('success_message')
+		//	});
+		//}, 4000);
 	}
 
 }
@@ -88,7 +88,7 @@ function restore_options() {
 	}
 	
 }
-/* delete slide effect
+
 $(function() {
 
 	//View Advanced Options
@@ -100,6 +100,6 @@ $(function() {
 		return false;
 	
 	});
-*/
+
 
 });

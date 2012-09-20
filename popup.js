@@ -71,7 +71,7 @@ $(function() {
 					}
 				}
 				
-				var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>";
+				var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>" + "<p><br /><p>"+"<div class='txc-textbox' style='border: 1px solid rgb(230, 230, 230); background-color: rgb(230, 230, 230); padding: 10px; '>"+"<p>" + document.getElementById('post_comment').value + "</p>" + "</div>";
 				
 				/*
 					For custom fields:
