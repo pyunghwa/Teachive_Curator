@@ -1,9 +1,38 @@
+// Curator for Teachive.org
+// Pyunghwa Kim
+
+/* Shit!!
+console.log("chrome.browserAction.onClicked.addListener");
+chrome.tabs.executeScript(null, {file: "content_script.js"});
+*/
+
+// 
 $(function() {
 	
+	// Curating button click
 	$('#go_add_link').click(function(){
 	
 		//Add a spinner, to suggest something is happening
 		$('#working').show().html("<img src='loading.gif' alt='' />");
+		
+		/* Shit!!
+		// get current tab source
+		var alltext = "";
+		chrome.extension.onConnect.addListener(function(port) {
+			console.log("chrome.extension.onConnect.addListener");
+			var tab = port.sender.tab;
+
+			// This will get called by the content script we execute in
+			// the tab as a result of the user pressing the browser action.
+			port.onMessage.addListener(function(info) {
+				console.log("port.onMessage.addListener");
+				var max_length = 1024;
+				if (info.selection.length > max_length)
+					document.getElementById("post_comment").value = info.selection.substring(0, max_length);
+				executeMailto(tab.id, info.title, tab.url, info.selection);
+			});
+		});
+		*/
 		
 		//We first need to get the URL of the page we're on
 		chrome.tabs.getSelected(null,function(tab) {
@@ -71,13 +100,21 @@ $(function() {
 					}
 				}
 				
-				var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>" + "<p><br /><p>"+"<div class='txc-textbox' style='border: 1px solid rgb(230, 230, 230); background-color: rgb(230, 230, 230); padding: 10px; '>"+"<p>" + document.getElementById('post_comment').value + "</p>" + "</div>";
+				// Want some change
+				if(alltext == "")
+					var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>" + "<p><br /><p>" + "<div class='txc-textbox' style='border: 1px solid rgb(230, 230, 230); background-color: rgb(230, 230, 230); padding: 10px; '>"+"<p>" + document.getElementById('post_comment').value + "</p>" + "</div>";
+				else
+					var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>" + "<p><br /><p>" + alltext + "<p><br /><p>" +"<div class='txc-textbox' style='border: 1px solid rgb(230, 230, 230); background-color: rgb(230, 230, 230); padding: 10px; '>"+"<p>" + document.getElementById('post_comment').value + "</p>" + "</div>";
 				
 				/*
 					For custom fields:
 					$content['custom_fields'] = array(array("key" => "import_id", "value" => $charid));
 				*/
 				
+				// Only use category content
+				var content = { title: post_title, description: content_for_post, categories: categories_array, mt_keywords: tags_array, post_type: set_post_type };
+				
+				/* Exclude Schedule and Link type
 				if(category_name && (category_name != "")){
 					
 					//A category name has been entered, so use that
@@ -110,6 +147,7 @@ $(function() {
 					}
 					
 				}
+				*/
 				
 				var edit_url_pre = endpoint.replace("xmlrpc.php","");
 				var edit_url = edit_url_pre + "wp-admin/edit.php";
@@ -130,9 +168,41 @@ $(function() {
 		});
 	
 	});
+	
+	
+	// Get date
+	$('#schedule_date_time').datetime({ format: "yy-mm-dd'T'hh:ii" });
+	
+	// Schedule slide motion
+	$('#schedule').slideUp();
+	
+	// Schedule click
+	$('.schedule_link').click(function(){
+	
+		$('#schedule').slideToggle();
+	
+	});
+	
+	
+	// Title at current tab
+	chrome.tabs.getSelected(null,function(tab) {
+	
+		if(tab.title){
+			var tabtitle = tab.title;
+		}else{
+			var tabtitle = "";
+		}
+		
+		if(tabtitle != ""){
+			$('#post_title').attr("value",tabtitle);
+		}
+	
+	});
 
 });
 
+
+// Check box for Category
 function clickElementaryCheckbox(event)
 {
 	var check1st = false;
