@@ -15,7 +15,7 @@ $(function() {
 		//Add a spinner, to suggest something is happening
 		$('#working').show().html("<img src='loading.gif' alt='' />");
 		
-		/* Shit!!
+		// Shit!!
 		// get current tab source
 		var alltext = "";
 		chrome.extension.onConnect.addListener(function(port) {
@@ -29,10 +29,10 @@ $(function() {
 				var max_length = 1024;
 				if (info.selection.length > max_length)
 					document.getElementById("post_comment").value = info.selection.substring(0, max_length);
-				executeMailto(tab.id, info.title, tab.url, info.selection);
+				alltext = info.selection;
 			});
 		});
-		*/
+		
 		
 		//We first need to get the URL of the page we're on
 		chrome.tabs.getSelected(null,function(tab) {
@@ -106,13 +106,23 @@ $(function() {
 				else
 					var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>" + "<p><br /><p>" + alltext + "<p><br /><p>" +"<div class='txc-textbox' style='border: 1px solid rgb(230, 230, 230); background-color: rgb(230, 230, 230); padding: 10px; '>"+"<p>" + document.getElementById('post_comment').value + "</p>" + "</div>";
 				
-				/*
-					For custom fields:
-					$content['custom_fields'] = array(array("key" => "import_id", "value" => $charid));
-				*/
+
+				// Custom Fields
+				var custom_fields_array = [];
+				// featuretext
+				var custom_fields_featuretext = { key: "featuretext", value: document.getElementById('post_comment').value };
+				// featureimage
+				var costom_fields_featureimage = { key: "featureimage", value: "http://teachive.org/wp-teachersarchive/wp-content/uploads/2012/09/Penguins.jpg" };
 				
-				// Only use category content
-				var content = { title: post_title, description: content_for_post, categories: categories_array, mt_keywords: tags_array, post_type: set_post_type };
+				custom_fields_array.push(custom_fields_featuretext);
+				custom_fields_array.push(costom_fields_featureimage);
+				
+				
+				// METAWEB API
+				var content = { title: post_title, description: content_for_post, categories: categories_array, mt_keywords: tags_array, post_type: set_post_type, custom_fields: custom_fields_array };
+				// WP API
+				//var content = { post_title: post_title, post_content: content_for_post, post_type: set_post_type, custom_fields:custom_fields_array };
+				console.log(content.custom_fields.key+":"+content.custom_fields.value);
 				
 				/* Exclude Schedule and Link type
 				if(category_name && (category_name != "")){

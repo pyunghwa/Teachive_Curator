@@ -415,6 +415,7 @@ NewPost.prototype.execute = function () {
 	EW.LogSystem.debug("wp.getComment ");
 	try {
 		var method = "metaWeblog.newPost";
+		//var method = "wp.newPost";
 		var request = new XmlRpcRequest(this.url, method);
 		request.addParam("1");
 		request.addParam(this.username);
