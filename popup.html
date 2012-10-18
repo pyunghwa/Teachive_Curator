@@ -50,7 +50,17 @@
 		<label for="post_title">Title: </label>
 		<input type="text" id="post_title" />
 		
-		<br /><br />
+		
+		<label>Preview: </label>
+		<div id="preview">
+			<div id="preview_image"></div>
+			<div id="preview_text"></div>
+		</div>
+		
+		
+		<label for="post_comment">Comment<i>(optional)</i>:</label>
+		<textarea id="post_comment" rows="4" placeholder="Comments"></textarea>
+		
 		
 		<label for="elementary_checkbox">Elementary<i>(optional)</i>: </label>
 		<div id="elementary_checkbox">
@@ -99,13 +109,6 @@
 			<label for="subjects_practical">½Ç°ú</label>
 			<input type="checkbox" id="subjects_practical" />
 		</div>
-		
-		<br />
-		
-		<label for="post_comment">Comment<i>(optional)</i>:</label>
-			<textarea id="post_comment" rows="4" placeholder="Comments"></textarea>
-		
-		<br />
 		
 		<label id="post_tags_lable" for="post_tags" style="display:none;">Tags: </label>
 		<input type="text" id="post_tags" style="display:none;" />

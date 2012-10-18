@@ -14,21 +14,21 @@ var post_title = '' ;
 var post_url = '' ;
 var post_content = '' ;
 var post_img = '' ;
+var post_excerpt = '';
 
-
-		
-		
 
 // 
 $(function() {
 
+	// Document ready
 	$(document).ready(function(){	
-		
-		console.log("document ready");
+	
+		// User information from option
 		username = localStorage["username"];
 		password = localStorage["password"];
 		endpoint = localStorage["endpoint"];
 		
+		// User information check
 		if( !username || !password || !endpoint ){
 			// Open up option page
 			chrome.tabs.create({url: "options.html"});
@@ -38,13 +38,19 @@ $(function() {
 			
 		 } else{
 
-			post_title = chrome.extension.getBackgroundPage().data.title ;
-			post_url = chrome.extension.getBackgroundPage().data.url ;
-			post_content = chrome.extension.getBackgroundPage().data.content ;
-			post_img = chrome.extension.getBackgroundPage().data.img ;
+			// Get clipping data from background
+			post_title = chrome.extension.getBackgroundPage().data.title;
+			post_url = chrome.extension.getBackgroundPage().data.url;
+			post_content = chrome.extension.getBackgroundPage().data.content;
+			post_img = chrome.extension.getBackgroundPage().data.img;
+			post_excerpt = chrome.extension.getBackgroundPage().data.excerpt;
 			
-			
-			$('#post_title').attr("value",post_title);
+			// Display clipping data
+			$('#post_title').attr("value",post_title); // Title
+			// Thumbnail image
+			var thumbnail_img = "<img src="+post_img+" width='120' />";
+			$('#preview_image').html(thumbnail_img); 
+			$('#preview_text').html(post_excerpt);// Excerpt
 		
 		}
 });
@@ -81,7 +87,7 @@ $(function() {
 		//We first need to get the URL of the page we're on
 		chrome.tabs.getSelected(null,function(tab) {
 		    
-		    var tablink = tab.url;
+		    //var tablink = tab.url;
 		    
 		   	EW.LogSystem.init(); //you can open the console by pressing ALT + D (in Firefox > 2.0 press SHIFT+ALT+D) 
 				
@@ -101,9 +107,7 @@ $(function() {
 			}
 	
 		    try {
-		    	//username = localStorage["username"];
-				//password = localStorage["password"];
-				//endpoint = localStorage["endpoint"];
+
 				var category_name = localStorage["category_name"];
 				var categories_array = [];
 				var e_post_type = localStorage["post_type"];
@@ -111,25 +115,24 @@ $(function() {
 				var set_schedule_date_time = document.getElementById("schedule_date_time");
 				var e_schedule_date_time = set_schedule_date_time.value;
 				
+				// Schedule check
 				if(e_schedule_date_time != ""){
 					var schedule_date = new Date(e_schedule_date_time);
 				}
 				
-				var set_title = document.getElementById("post_title");
-				var e_post_title = set_title.value;
-				
-				if(e_post_title == ""){
-					var post_title = tablink;
-				}else{
-					var post_title = e_post_title;
+				// Title check
+				if(post_title == "" || post_title == null){
+					post_title = post_url;
 				}
 				
+				// Post type check
 				if(e_post_type !== ""){
 					set_post_type = e_post_type;
 				}else{
 					set_post_type = "post";
 				}
 				
+				// Tags check
 				var tags_array = [];
 				var set_tags = document.getElementById("post_tags");
 				var e_set_tags = set_tags.value;
@@ -144,31 +147,28 @@ $(function() {
 					}
 				}
 				
-				// Want some change
-				if(post_content == "")
-					var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>";
-				else
-					var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>" + "<p><br /></p>" + post_content;
-				
+				// Post content check
+				if(post_content == null) {
+					post_content = "";
+				}
 
 				// Custom Fields
 				var custom_fields_array = [];
-				// featuretext
-				var custom_fields_featuretext = { key: "featuretext", value: document.getElementById('post_comment').value };
-				// featureimage
-				var custom_fields_featureimage = { key: "featureimage", value: post_img };
-				// featureurl
-				var custom_fields_featureurl = { key: "featureurl", value: tablink };
+				var custom_fields_featuretext = { key: "featuretext", value: document.getElementById('post_comment').value }; // featuretext
+				var custom_fields_featureimage = { key: "featureimage", value: post_img }; // featureimage
+				var custom_fields_featureurl = { key: "featureurl", value: post_url }; // featureurl
 				
 				custom_fields_array.push(custom_fields_featuretext);
 				custom_fields_array.push(custom_fields_featureimage);
 				custom_fields_array.push(custom_fields_featureurl);
 				
 				
-				// METAWEB API
-				var content = { title: post_title, description: content_for_post, categories: categories_array, mt_keywords: tags_array, post_type: set_post_type, custom_fields: custom_fields_array };
+				// METAWEB API - Final!!
+				var content = { title: post_title, description: post_content, categories: categories_array, mt_keywords: tags_array, post_type: set_post_type, custom_fields: custom_fields_array };
+				
 				// WP API
 				//var content = { post_title: post_title, post_content: content_for_post, post_type: set_post_type, custom_fields:custom_fields_array };
+				
 				console.log(content.custom_fields.key+":"+content.custom_fields.value);
 				
 				

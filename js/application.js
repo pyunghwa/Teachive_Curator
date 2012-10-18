@@ -27,12 +27,14 @@ function pickImg(){
     width = width * ratio ; // Reset width to match scaled image
   }
 
-  /* only img url
+  /* img whole code
   var result = '<img src="' + img + '" ' ;
   result    += 'height="' + height + '" ' ;
   result    += 'width="' + width + '" ' ;
   result    += ' align="right"/>' ;
   */
+  
+  // only img url
   var result = img;
   
   return result ;
@@ -48,6 +50,43 @@ function getContent(){
   }
 */
 	var result = $('.textcontent').html();
+	if(result == null){
+		result = $('.post_content').html();
+	}
+	
+	if(result == null){
+		result = $('.content').html();
+	}
+	
+	if(result == null){
+		result = $('body').html();
+	}
+	
+
+  return result ;
+}
+
+function getExcerpt(){
+
+	var result = $('.textcontent').text();
+	
+	if(result == null){
+		result = $('.post_content').text();
+	}
+	
+	if(result == null){
+		result = $('.content').text();
+	}
+	
+	if(result == null){
+		result = $('body').text();
+	}
+	
+	result = result + '';
+	var max_length = 160;
+	if (result.length > max_length)
+		result = result.substring(0, max_length);
+	result = result + '...';
 
   return result ;
 }
@@ -57,6 +96,7 @@ chrome.extension.sendRequest({
   'title': $('title').html(),
   'url': document.URL,
   'content': getContent(),
-  'img': pickImg()
+  'img': pickImg(),
+  'excerpt': getExcerpt()
 });
 
