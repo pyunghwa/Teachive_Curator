@@ -1,4 +1,4 @@
-// Curator for Teachive.org
+﻿// Curator for Teachive.org
 // Pyunghwa Kim
 
 /* Shit!!
@@ -6,8 +6,50 @@ console.log("chrome.browserAction.onClicked.addListener");
 chrome.tabs.executeScript(null, {file: "content_script.js"});
 */
 
+var username = '';
+var password = '';
+var endpoint = '';
+
+var post_title = '' ;
+var post_url = '' ;
+var post_content = '' ;
+var post_img = '' ;
+
+
+		
+		
+
 // 
 $(function() {
+
+	$(document).ready(function(){	
+		
+		console.log("document ready");
+		username = localStorage["username"];
+		password = localStorage["password"];
+		endpoint = localStorage["endpoint"];
+		
+		if( !username || !password || !endpoint ){
+			// Open up option page
+			chrome.tabs.create({url: "options.html"});
+			
+			// Close pop up
+			window.close();
+			
+		 } else{
+
+			post_title = chrome.extension.getBackgroundPage().data.title ;
+			post_url = chrome.extension.getBackgroundPage().data.url ;
+			post_content = chrome.extension.getBackgroundPage().data.content ;
+			post_img = chrome.extension.getBackgroundPage().data.img ;
+			
+			
+			$('#post_title').attr("value",post_title);
+		
+		}
+});
+
+	
 	
 	// Curating button click
 	$('#go_add_link').click(function(){
@@ -17,6 +59,7 @@ $(function() {
 		
 		// Shit!!
 		// get current tab source
+		/*
 		var alltext = "";
 		chrome.extension.onConnect.addListener(function(port) {
 			console.log("chrome.extension.onConnect.addListener");
@@ -26,12 +69,13 @@ $(function() {
 			// the tab as a result of the user pressing the browser action.
 			port.onMessage.addListener(function(info) {
 				console.log("port.onMessage.addListener");
-				var max_length = 1024;
-				if (info.selection.length > max_length)
-					document.getElementById("post_comment").value = info.selection.substring(0, max_length);
+				//var max_length = 1024;
+				//if (info.selection.length > max_length)
+				//	document.getElementById("post_comment").value = info.selection.substring(0, max_length);
 				alltext = info.selection;
 			});
 		});
+		*/
 		
 		
 		//We first need to get the URL of the page we're on
@@ -57,9 +101,9 @@ $(function() {
 			}
 	
 		    try {
-		    	var username = localStorage["username"];
-				var password = localStorage["password"];
-				var endpoint = localStorage["endpoint"];
+		    	//username = localStorage["username"];
+				//password = localStorage["password"];
+				//endpoint = localStorage["endpoint"];
 				var category_name = localStorage["category_name"];
 				var categories_array = [];
 				var e_post_type = localStorage["post_type"];
@@ -101,10 +145,10 @@ $(function() {
 				}
 				
 				// Want some change
-				if(alltext == "")
-					var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>" + "<p><br /><p>" + "<div class='txc-textbox' style='border: 1px solid rgb(230, 230, 230); background-color: rgb(230, 230, 230); padding: 10px; '>"+"<p>" + document.getElementById('post_comment').value + "</p>" + "</div>";
+				if(post_content == "")
+					var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>";
 				else
-					var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>" + "<p><br /><p>" + alltext + "<p><br /><p>" +"<div class='txc-textbox' style='border: 1px solid rgb(230, 230, 230); background-color: rgb(230, 230, 230); padding: 10px; '>"+"<p>" + document.getElementById('post_comment').value + "</p>" + "</div>";
+					var content_for_post = "<a href='" + tablink + "' title=''>" + tablink + "</a>" + "<p><br /></p>" + post_content;
 				
 
 				// Custom Fields
@@ -112,10 +156,13 @@ $(function() {
 				// featuretext
 				var custom_fields_featuretext = { key: "featuretext", value: document.getElementById('post_comment').value };
 				// featureimage
-				var costom_fields_featureimage = { key: "featureimage", value: "http://teachive.org/wp-teachersarchive/wp-content/uploads/2012/09/Penguins.jpg" };
+				var custom_fields_featureimage = { key: "featureimage", value: post_img };
+				// featureurl
+				var custom_fields_featureurl = { key: "featureurl", value: tablink };
 				
 				custom_fields_array.push(custom_fields_featuretext);
-				custom_fields_array.push(costom_fields_featureimage);
+				custom_fields_array.push(custom_fields_featureimage);
+				custom_fields_array.push(custom_fields_featureurl);
 				
 				
 				// METAWEB API
@@ -123,6 +170,7 @@ $(function() {
 				// WP API
 				//var content = { post_title: post_title, post_content: content_for_post, post_type: set_post_type, custom_fields:custom_fields_array };
 				console.log(content.custom_fields.key+":"+content.custom_fields.value);
+				
 				
 				/* Exclude Schedule and Link type
 				if(category_name && (category_name != "")){
@@ -195,6 +243,7 @@ $(function() {
 	
 	
 	// Title at current tab
+	/*
 	chrome.tabs.getSelected(null,function(tab) {
 	
 		if(tab.title){
@@ -204,10 +253,11 @@ $(function() {
 		}
 		
 		if(tabtitle != ""){
-			$('#post_title').attr("value",tabtitle);
+			//$('#post_title').attr("value",tabtitle);
 		}
 	
 	});
+	*/
 
 });
 
