@@ -75,6 +75,10 @@ function getExcerpt(){
 	}
 	
 	if(result == null){
+		result = $('.postwrap').text();
+	}
+	
+	if(result == null){
 		result = $('.content').text();
 	}
 	

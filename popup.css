@@ -8,17 +8,16 @@ html
 
 #container
 {
-	min-width: 400px;
-	min-height: 600px;
-	padding: 20px;
+	width: 560px;
+	padding: 10px 20px;
 }
 
+/* Title */
 #container h1
 {
-	font: italic normal normal 24px/29px "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
-	margin: 0 0 30px 0;
-	padding: 14px 15px 3px 0;
-	line-height: 35px;
+	font: italic normal normal 22px/22px "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+	margin: 10px auto;
+	line-height: 20px;
 	text-shadow: rgba(255, 255, 255, 1) 0 1px 0;
 	color: #464646;
 	text-align: center;
@@ -29,42 +28,49 @@ html
 	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	color: rgb(40,40,40);
 	font-size: 12px;
-	display: block;
 }
 
-#elementary_checkbox, #subjects_checkbox
+#container select
 {
-	padding: 0 15px;
-	display: none;
-}
-#elementary_checkbox label, #subjects_checkbox label
-{
-	display: inline;
-}
-
-#container #post_title, #post_tags, #schedule_date_time, #post_comment
-{
-	padding: 3px 4px;
-	margin-bottom: 8px;
+	padding: 2px 4px;
+	margin: 0;
 	border-width: 1px;
 	border-style: solid;
 	-moz-border-radius: 3px;
 	-khtml-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	font-size: 14px;
+	font-size: 13px;
 	line-height: 100%;
-	width: 100%;
+	width: 510px;
 	outline: none;
 	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	color: rgb(40,40,40);
 }
 
+#container #post_title, #post_tags, #schedule_date_time, #post_comment
+{
+	padding: 3px 4px;
+	margin: 0;
+	border-width: 1px;
+	border-style: solid;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	font-size: 13px;
+	line-height: 100%;
+	width: 550px;
+	outline: none;
+	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+	color: rgb(40,40,40);
+}
+
+/* Preview */
 #container #preview
 {
 	display: block;
 	padding: 3px 4px;
-	margin-bottom: 8px;
 	border-width: 1px;
 	border-style: solid;
 	border-color: #999999;
@@ -72,16 +78,15 @@ html
 	-khtml-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	width: 100%;
+	width: 550px;
 	outline: none;
 	color: #F9F9F9;
-	height: 120px;
 	max-height: 120px;
 }
 
 #container #preview #preview_image
 {
-	display: inline-block	;
+	display: block;
 	float: left;
 	width: 120px;
 	max-width: 120px;
@@ -91,15 +96,22 @@ html
 
 #container #preview #preview_text
 {
-	display: inline-block	;
-	float: right;
 	padding: 3px 4px;
 	overflow: hidden;
 	font-size: 12px;
 	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	color: #000000;
-	width: 270px;
 	max-height: 120px;
+}
+
+/* Main Category */
+#container #main_category {
+	margin-top: 0px;
+}
+
+/* Sub Category */
+#container #sub_category {
+	margin-top: 15px;
 }
 
 #container #go_add_link

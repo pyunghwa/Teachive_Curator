@@ -16,11 +16,21 @@ var post_content = '' ;
 var post_img = '' ;
 var post_excerpt = '';
 
+var selectedGrades = '';
+var selectedSubjects = '';
+var selectedSemester = '';
+var selectedTopic1 = '';
+var selectedTopic2 = '';
+var selectedTopic3 = '';
+
 
 // 
 $(function() {
 
+
+	//
 	// Document ready
+	//
 	$(document).ready(function(){	
 	
 		// User information from option
@@ -53,11 +63,75 @@ $(function() {
 			$('#preview_text').html(post_excerpt);// Excerpt
 		
 		}
-});
-
+	});
 	
 	
+	
+	
+	//
+	// Compoenents Setting
+	//
+	var $grade_check = $("#grade_check").buttonset();
+	var $subject_check = $("#subject_check").buttonset();
+	var $semester_radio = $("#semester_radio").buttonset();
+	//$("#topic1_combo").combobox();
+	//$("#topic2_combo").combobox();
+	//$("#topic3_combo").combobox();
+	
+	// Grade check
+	$("#grade_check3").change(function(){
+		//alert($("#grade_check3").attr("checked"));
+		if($(this).attr("checked") == "checked")
+			selectedGrades = $(this).attr("id");
+		else
+			selectedGrades = '';
+		
+		// 학년과 과목이 선택된 경우만 하위 메뉴를 보여줌
+		if(selectedGrades != '' && selectedSubjects != ''){
+			$("#sub_category").css({display: "block"}).show(500);
+		}else{
+			$("#sub_category").css({display: "none"});
+		}
+	});
+	
+	// Subejct check
+	$("#subject_check4").change(function(){
+		if($(this).attr("checked") == "checked")
+			selectedSubjects = $(this).attr("id");
+		else
+			selectedSubjects = '';
+		
+		// 학년과 과목이 선택된 경우만 하위 메뉴를 보여줌
+		if(selectedGrades != '' && selectedSubjects != ''){
+			$("#sub_category").css({display: "block"}).show(500);
+		}else{
+			$("#sub_category").css({display: "none"});
+		}
+	});
+	
+	// Semester check
+	$("#semester_radio1").change(function(){	// 1학기
+		selectedSemester = $(this).attr("id");
+		
+	});
+	$("#semester_radio2").change(function(){	// 2학기
+		selectedSemester = $(this).attr("id");
+		
+	});
+	
+	// Topic1 check
+	$("#topic1_combo").change(function(){
+		//alert($("#topic1_combo").val());
+	});
+	
+	
+	
+	
+	
+	
+	//
 	// Curating button click
+	//
 	$('#go_add_link').click(function(){
 	
 		//Add a spinner, to suggest something is happening
@@ -151,6 +225,21 @@ $(function() {
 				if(post_content == null) {
 					post_content = "";
 				}
+				
+				// Category check
+				//categories_array.push("3학년 과학 1학기");
+				if($("#topic3_combo").val() != ''){
+					categories_array.push($("#topic3_combo").val());
+				} else if($("#topic2_combo").val() != ''){
+					categories_array.push($("#topic2_combo").val());
+				} else if($("#topic1_combo").val() != ''){
+					categories_array.push($("#topic1_combo").val());
+				} else if($("#subject_check4").attr("checked") == "checked"){
+					categories_array.push("3학년 과학");
+				} else if($("#grade_check3").attr("checked") == "checked"){
+					categories_array.push("3학년");
+				}
+				
 
 				// Custom Fields
 				var custom_fields_array = [];
@@ -214,7 +303,7 @@ $(function() {
 		        connection.addListener(new AddBlogsListener());
 		        connection.startConn();
 		        
-		        $('#working').html("<p id='complete'>Awesome! That's been <a target='_new' href='" + edit_url + "' title='Published!'>published</a>!</p>");
+		        $('#working').html("<p id='complete'>That's been <a target='_new' href='" + edit_url + "' title='Published!'>clipped</a>!</p>");
 		        		        
 		    } 
 		    catch (error_obj) {
@@ -260,40 +349,3 @@ $(function() {
 	*/
 
 });
-
-
-// Check box for Category
-function clickElementaryCheckbox(event)
-{
-	var check1st = false;
-	var check2nd = false;
-	var check3rd = false;
-	var check4th = false;
-	var check5th = false;
-	var check6th = false;
-	
-	alert("Aaaaaaa" + event.target.value);
-	
-	if(event.target.id == "grade_elementaty_1") {
-		if(check1st == false) {
-			document.getElementById('subjects_korean').disabled = true;
-			document.getElementById('subjects_korean').checked = true;
-			//#subjects_math
-			//#subjects_goodlife
-			//#subjects_wiselife
-			//#subjects_funlife
-			//#subjects_ethic
-			//#subjects_society
-			//#subjects_science
-			//#subjects_physical
-			//#subjects_music
-			//#subjects_art
-			//#subjects_english
-			//#subjects_practical
-			check1st = true;
-		}else {
-			check1st = false;
-		}
-	}
-			
-}
