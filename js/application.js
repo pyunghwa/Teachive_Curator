@@ -50,15 +50,28 @@ function getContent(){
   }
 */
 	var result = $('.textcontent').html();
-	if(result == null){
+	
+	if(result == null || result == ""){
+		result = $('article').html();
+	}
+		
+	if(result == null || result == ""){
 		result = $('.post_content').html();
 	}
 	
-	if(result == null){
+	if(result == null || result == ""){
+		result = $('.postwrap').html();
+	}
+	
+	if(result == null || result == ""){
+		result = $('.post_wrapper').html();
+	}
+	
+	if(result == null || result == ""){
 		result = $('.content').html();
 	}
 	
-	if(result == null){
+	if(result == null || result == ""){
 		result = $('body').html();
 	}
 	
@@ -70,19 +83,27 @@ function getExcerpt(){
 
 	var result = $('.textcontent').text();
 	
-	if(result == null){
+	if(result == null || result == ""){
+		result = $('article').text();
+	}
+	
+	if(result == null || result == ""){
 		result = $('.post_content').text();
 	}
 	
-	if(result == null){
+	if(result == null || result == ""){
 		result = $('.postwrap').text();
 	}
 	
-	if(result == null){
+	if(result == null || result == ""){
+		result = $('.post_wrapper').text();
+	}
+	
+	if(result == null || result == ""){
 		result = $('.content').text();
 	}
 	
-	if(result == null){
+	if(result == null || result == ""){
 		result = $('body').text();
 	}
 	

@@ -71,12 +71,131 @@ $(function() {
 	//
 	// Compoenents Setting
 	//
-	var $grade_check = $("#grade_check").buttonset();
-	var $subject_check = $("#subject_check").buttonset();
-	var $semester_radio = $("#semester_radio").buttonset();
+	var $subject_check = $("#cat_subject").buttonset();
+	var $grade_check = $("#cat_grade").buttonset();
+	var $semester_radio = $("#cat_semester").buttonset();
 	//$("#topic1_combo").combobox();
 	//$("#topic2_combo").combobox();
 	//$("#topic3_combo").combobox();
+	
+	// UI 선택 탭
+	var $ui_tabs = $("#ui_tabs").tabs();
+	// fix the classes
+    $( ".tabs-bottom .ui-tabs-nav, .tabs-bottom .ui-tabs-nav > *" ).removeClass( "ui-corner-all ui-corner-top" ).addClass( "ui-corner-bottom" );
+    // move the nav to the bottom
+    $( ".tabs-bottom .ui-tabs-nav" ).appendTo( ".tabs-bottom" );
+	
+	// UI-1 Accordion
+	 $( "#accordion-1" ).accordion({
+		heightStyle: "content"
+	 });
+	 $( "#accordion-2" ).accordion({
+		heightStyle: "content"
+	 });
+	 $("#acc-checkbox-3").buttonset();
+	 $("#acc-checkbox-4").buttonset();
+	 $("#acc-checkbox-5").buttonset();
+	 
+	 // UI-2 Auto Comlpete
+	var availableTopic1 = [
+		"01우리 생활과 물질",
+		"02자석의 성질",
+		"03동물의 한살이",
+		"04날씨와 우리 생활"
+	];
+	$( "#topic1_auto" ).autocomplete({
+		source: availableTopic1
+	});
+	var availableTopic2 = [
+		"001물체와 물질",
+		"002다양하게 쓰이는 물질",
+		"003물질의 상태"
+	];
+	$( "#topic2_auto" ).autocomplete({
+		source: availableTopic2
+	});
+	var availableTopic3 = [
+		"[1차시]물체는 무엇으로 만들어졌을까요?",
+		"[2차시]물질이란 무엇일까요?",
+		"[3차시]물체 분류하기",
+		"[4차시]물질은 어떤 성질을 가지고 있을까요?",
+		"[5차시]쓰임새가 다양한 물질에 대하여 알아봅시다",
+		"[6차시]쓰임새는 같으나 다양한 물질로 만들어진 물체를 알아봅시다",
+		"[7차시]고체에 대하여 알아봅시다",
+		"[8차시]액체에 대하여 알아봅시다",
+		"[9차시]공기가 있음을 알아봅시다",
+		"[10차시]기체에 대하여 알아봅시다",
+		"[11차시]물질을 고체, 액체, 기체로 분류하여 봅시다"
+	];
+	$( "#topic3_auto" ).autocomplete({
+		source: availableTopic3
+	});
+	
+	// UI-3 Button (Check)
+	$("#topic1_btn").buttonset();
+	$("#topic2_btn").buttonset();
+	$("#topic3_btn").buttonset();
+	$("#topic4_btn").buttonset();
+	$("#topic5_btn").buttonset();
+	
+	// UI-4 Menu+Check
+	$( "#menu" ).menu();
+	
+	// UI-5 
+	
+	// UI-6 Button (Check + Hidden)
+	$("#topic1_hbtn").buttonset();
+	$("#topic2_hbtn").buttonset();
+	$("#topic3_hbtn").buttonset();
+	$("#topic4_hbtn").buttonset();
+	$("#topic5_hbtn").buttonset();
+	
+	$("#topic1_hbtn_1").change(function(){
+		if($(this).attr("checked") == "checked")
+			$("#topic2_hbtn").css({display: "block"}).show(500);
+		else
+			$("#topic2_hbtn").css({display: "none"});
+	});
+	$("#topic2_hbtn_1").change(function(){
+		if($(this).attr("checked") == "checked")
+			$("#topic3_hbtn").css({display: "block"}).show(500);
+		else
+			$("#topic3_hbtn").css({display: "none"});
+	});
+	$("#topic2_hbtn_2").change(function(){
+		if($(this).attr("checked") == "checked")
+			$("#topic4_hbtn").css({display: "block"}).show(500);
+		else
+			$("#topic4_hbtn").css({display: "none"});
+	});
+	$("#topic2_hbtn_3").change(function(){
+		if($(this).attr("checked") == "checked")
+			$("#topic5_hbtn").css({display: "block"}).show(500);
+		else
+			$("#topic5_hbtn").css({display: "none"});
+	});
+	$("#topic1_hbtn_2").change(function(){
+		if($(this).attr("checked") == "checked")
+			$("#topic6_hbtn").css({display: "block"}).show(500);
+		else
+			$("#topic6_hbtn").css({display: "none"});
+	});
+	$("#topic1_hbtn_3").change(function(){
+		if($(this).attr("checked") == "checked")
+			$("#topic7_hbtn").css({display: "block"}).show(500);
+		else
+			$("#topic7_hbtn").css({display: "none"});
+	});
+	$("#topic1_hbtn_4").change(function(){
+		if($(this).attr("checked") == "checked")
+			$("#topic8_hbtn").css({display: "block"}).show(500);
+		else
+			$("#topic8_hbtn").css({display: "none"});
+	});
+	
+	
+	
+	
 	
 	// Grade check
 	$("#grade_check3").change(function(){
@@ -87,11 +206,13 @@ $(function() {
 			selectedGrades = '';
 		
 		// 학년과 과목이 선택된 경우만 하위 메뉴를 보여줌
+		/*
 		if(selectedGrades != '' && selectedSubjects != ''){
 			$("#sub_category").css({display: "block"}).show(500);
 		}else{
 			$("#sub_category").css({display: "none"});
 		}
+		*/
 	});
 	
 	// Subejct check
@@ -102,11 +223,13 @@ $(function() {
 			selectedSubjects = '';
 		
 		// 학년과 과목이 선택된 경우만 하위 메뉴를 보여줌
+		/*
 		if(selectedGrades != '' && selectedSubjects != ''){
 			$("#sub_category").css({display: "block"}).show(500);
 		}else{
 			$("#sub_category").css({display: "none"});
 		}
+		*/
 	});
 	
 	// Semester check
